@@ -8,7 +8,7 @@ export default function Home() {
     const formData = new FormData(e.target);
     
     try {
-      const response = await fetch('YOUR_RENDER_API_URL/upload', {
+      const response = await fetch('https://vercel-to-render-backend.onrender.com/upload', {
         method: 'POST',
         body: formData,
       });
