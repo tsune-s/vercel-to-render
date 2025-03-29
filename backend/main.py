@@ -14,4 +14,12 @@ app.add_middleware(
 
 @app.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
-    return {"filename": file.filename} 
+    # ファイルの内容を読み込む
+    content = await file.read()
+    
+    return {
+        "filename": file.filename,
+        "content_type": file.content_type,
+        "file_size": len(content),
+        "message": "ファイルを受け取りました"
+    } 
