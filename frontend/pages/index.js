@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export default function Home() {
-  const [filename, setFilename] = useState('');
+  const [fileInfo, setFileInfo] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,7 +14,7 @@ export default function Home() {
       });
       
       const data = await response.json();
-      setFilename(data.filename);
+      setFileInfo(data);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -27,7 +27,15 @@ export default function Home() {
         <input type="file" name="file" />
         <button type="submit">アップロード</button>
       </form>
-      {filename && <p>アップロードされたファイル: {filename}</p>}
+      {fileInfo && (
+        <div style={{ marginTop: '20px' }}>
+          <h2>ファイル情報:</h2>
+          <p>ファイル名: {fileInfo.filename}</p>
+          <p>ファイルタイプ: {fileInfo.content_type}</p>
+          <p>ファイルサイズ: {fileInfo.file_size} バイト</p>
+          <p>メッセージ: {fileInfo.message}</p>
+        </div>
+      )}
     </div>
   );
 } 
